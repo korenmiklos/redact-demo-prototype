@@ -1,0 +1,175 @@
+/* Page-specific styles for the Redact demo.
+ * Built on top of theme.css (which loads lib/ds/styles.css). */
+
+.intro-try .cols-2 { gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.intro .display { font-size: clamp(3rem, 7vw, 6rem); }
+.intro .lead { max-width: 40ch; }
+
+.try-it .panel {
+  background: var(--bg-surface);
+  border: var(--border-hair) solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.try-it .row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.try-it .row-label {
+  font-family: var(--font-mono);
+  font-size: var(--size-meta);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Sample pills */
+.samples { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.samples button {
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+  border: var(--border-hair) solid var(--border-subtle);
+  background: var(--bg-surface);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+.samples button:hover { background: var(--bg-sunken); color: var(--text-primary); }
+.samples button.active { background: var(--accent); color: var(--accent-contrast); border-color: var(--accent); }
+
+/* Input textarea */
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 8.5rem;
+  resize: vertical;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  border: var(--border-hair) solid var(--border-default);
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+.input:focus { border-color: var(--accent); }
+
+/* Toolbar: view toggle + status */
+.toolbar { justify-content: space-between; }
+.view-toggle {
+  display: inline-flex;
+  border-radius: var(--radius-full);
+  border: var(--border-hair) solid var(--border-subtle);
+  padding: 2px;
+  gap: 2px;
+}
+.view-toggle label {
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-colors);
+}
+.view-toggle label input { position: absolute; opacity: 0; pointer-events: none; }
+.view-toggle label:has(input:checked) { background: var(--accent); color: var(--accent-contrast); }
+
+.status-line {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-normal);
+  min-height: 1.2em;
+  font-variant-numeric: tabular-nums;
+}
+.status-line.err { color: var(--danger); }
+
+/* Result panel */
+.result {
+  display: block;
+  min-height: 4rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-canvas);
+  border: var(--border-hair) solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-primary);
+}
+.result:empty::before { content: "Detected entities will appear here."; color: var(--text-muted); }
+
+/* Entity highlight chip (Highlight view) */
+.ent {
+  border-radius: var(--radius-sm);
+  padding: 0.05em 0.15em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  position: relative;
+  background: var(--ent-bg);
+  color: var(--ent-fg);
+  box-shadow: inset 0 -0.55em 0 var(--ent-bg);
+}
+.ent .tag {
+  font-size: 0.6em;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--ent-fg);
+  opacity: 0.75;
+  margin-left: 0.25em;
+  vertical-align: 0.05em;
+}
+
+/* Redacted view: solid label token */
+.mask {
+  display: inline;
+  border-radius: var(--radius-sm);
+  padding: 0.08em 0.4em;
+  font-size: 0.82em;
+  letter-spacing: var(--tracking-wide);
+  background: var(--ent-bg);
+  color: var(--ent-fg);
+  border: var(--border-hair) solid var(--ent-fg);
+}
+
+/* Category palette (soft bg / strong fg pairs) */
+.cat-name    { --ent-bg: rgba(56,132,255,0.16);  --ent-fg: #1d4ed8; }
+.cat-contact { --ent-bg: rgba(16,163,127,0.16);  --ent-fg: #0f766e; }
+.cat-finance { --ent-bg: rgba(217,119,6,0.16);   --ent-fg: #b45309; }
+.cat-id      { --ent-bg: rgba(220,38,38,0.15);   --ent-fg: #b91c1c; }
+.cat-address { --ent-bg: rgba(147,51,234,0.15);  --ent-fg: #7c3aed; }
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; }
+.legend .item {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.68rem;
+  letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  color: var(--text-muted);
+}
+.legend .dot { width: 0.65rem; height: 0.65rem; border-radius: var(--radius-full); background: var(--ent-fg); }
+
+/* CTA links: muted mono, like the other demos. */
+.cta-links {
+  font-family: var(--font-mono);
+  font-size: var(--size-meta);
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wide);
+  margin-top: 2rem;
+}
+.cta-links a { color: var(--text-muted); }
+.cta-links a:hover { color: var(--text-accent); }

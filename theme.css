@@ -1,0 +1,244 @@
+/* Desert Ant Labs shared demo visual system.
+ *
+ * Reusable across product demo pages (uhm-demo, clear-demo, future).
+ * Loads lib/ds/styles.css for the brand tokens, then layers demo-specific
+ * primitives on top. Classes (not utilities), so a page composes them in
+ * markup without a build step.
+ */
+
+:root {
+  /* Tunable demo-layer aliases on top of the design-system tokens. */
+  --pad-page: clamp(1.25rem, 4vw, 4.5rem);
+  --gap-card: clamp(3rem, 7vw, 7rem);
+
+  /* Demo display sizes. Large; the brand voice carries. */
+  --size-eyebrow: var(--text-2xs);
+  --size-meta:    var(--text-2xs);
+  --size-body:    var(--text-md);
+  --size-lead:    var(--text-xl);
+  --size-h3:      var(--text-3xl);
+  --size-h2:      var(--text-5xl);
+  --size-h1:      var(--text-7xl);
+  --size-stat:    var(--text-5xl);
+
+  color-scheme: light;
+}
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--size-body);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--text-accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ─────────── Layout primitives ─────────── */
+
+.page {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: var(--pad-page);
+}
+
+.card {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  border-bottom: var(--border-hair) solid var(--border-subtle);
+}
+.card:last-of-type { border-bottom: 0; }
+
+/* Optional right-aligned variant for eyebrow secondary content. */
+.eyebrow .right { margin-left: auto; color: var(--text-muted); }
+
+/* Stat block: big serif number, mono caption. */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: clamp(1.25rem, 3vw, 3rem);
+  border-top: var(--border-hair) solid var(--border-subtle);
+  padding-top: 1.5rem;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.stat .num {
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.stat .num.accent { color: var(--text-accent); font-style: italic; }
+.stat .label {
+  font-family: var(--font-mono);
+  font-size: var(--size-meta);
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* Meta row: small mono labels. */
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--size-meta);
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* Bar comparator: two stacked rows with rounded bars. */
+.bar-compare {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.7fr) 1fr auto;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  margin: 1rem 0;
+}
+.bar-compare .lbl {
+  display: flex; flex-direction: column;
+}
+.bar-compare .lbl .who { font-weight: var(--weight-semibold); font-size: 1.05rem; }
+.bar-compare .lbl .where {
+  font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--text-muted); letter-spacing: var(--tracking-wide); text-transform: uppercase;
+}
+.bar-compare .track {
+  height: 14px; border-radius: var(--radius-full); background: var(--bg-sunken);
+  overflow: hidden; position: relative;
+}
+.bar-compare .fill {
+  height: 100%; border-radius: var(--radius-full);
+  background: var(--text-primary);
+}
+.bar-compare .fill.accent { background: var(--accent); }
+.bar-compare .val {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold); font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 4ch;
+  text-align: right;
+}
+.bar-compare .val.accent { color: var(--text-accent); }
+
+/* Pill button: file picker, model toggle, etc. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-full);
+  border: var(--border-hair) solid var(--border-default);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition-colors);
+}
+.pill:hover { background: var(--bg-sunken); }
+.pill.active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-color: var(--accent);
+}
+.pill.ghost { color: var(--text-muted); }
+.pill:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Compact app links: shown in the CTA. */
+.app-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.app-link {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-3) var(--space-5);
+  border: var(--border-hair) solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+.app-link:hover {
+  border-color: var(--accent);
+  background: var(--bg-raised);
+  text-decoration: none;
+}
+.app-link .name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: var(--weight-regular);
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+.app-link .platforms {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+/* Footer: brand and page count. */
+.brand-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-top: var(--border-hair) solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--size-meta);
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+/* Credits: sits above the brand footer. */
+.credits {
+  padding: 1rem 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--size-meta);
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.7;
+}
+.credits .credits-label {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin-right: 0.6rem;
+  color: var(--text-muted);
+}
+.credits a {
+  color: var(--text-secondary);
+  border-bottom: var(--border-hair) solid var(--border-subtle);
+}
+.credits a:hover {
+  color: var(--text-accent);
+  border-bottom-color: var(--text-accent);
+  text-decoration: none;
+}
+
+/* Inline link inside flowing prose. */
+.inline-link {
+  color: inherit;
+  border-bottom: var(--border-hair) solid currentColor;
+  text-decoration: none;
+}
+.inline-link:hover {
+  color: var(--text-accent);
+  border-bottom-color: var(--text-accent);
+  text-decoration: none;
+}
+

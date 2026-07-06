@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Redact: on-device PII redaction</title>
+  <meta name="description" content="Desert Ant Labs' Redact model finds and masks names, addresses, emails, phones, cards, IBANs and IDs across 24 EU languages, entirely on device. Your text never leaves the browser." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Desert Ant Labs" />
+  <meta property="og:title" content="Redact: on-device PII redaction" />
+  <meta property="og:description" content="Names, addresses, emails, phones, cards, IBANs and IDs, masked on device across 24 EU languages." />
+
+  <link rel="icon" type="image/svg+xml" href="lib/ds/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="lib/ds/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="lib/ds/assets/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="lib/ds/styles.css" />
+  <link rel="stylesheet" href="theme.css" />
+  <link rel="stylesheet" href="redact.css" />
+
+  <script type="importmap">
+  {
+    "imports": {
+      "@huggingface/transformers": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0",
+      "@desert-ant-labs/redact": "https://esm.sh/@desert-ant-labs/redact@0.2.0?external=@huggingface/transformers"
+    }
+  }
+  </script>
+</head>
+<body>
+<main class="page">
+
+  <!-- ─────────── 01 · Intro + Try it ─────────── -->
+  <section class="card intro-try">
+    <div class="cols-2">
+      <div class="intro">
+        <div class="eyebrow"><span>Desert Ant Labs · on-device models</span></div>
+        <h1 class="display">Redact<span class="dot">.</span></h1>
+        <p class="lead">
+          Names, addresses, emails, phones, cards, IBANs and national IDs,
+          <span class="accent">masked on device</span>, across all 24 EU languages.
+          <span class="accent">Your text never leaves the browser.</span>
+        </p>
+      </div>
+
+      <div class="try-it">
+        <div class="panel">
+          <div class="row">
+            <span class="row-label">Sample</span>
+            <div class="samples" id="samples"></div>
+          </div>
+
+          <textarea id="input" class="input" spellcheck="false"
+            placeholder="Type or paste text with personal data…"></textarea>
+
+          <div class="row toolbar">
+            <div class="view-toggle" id="viewToggle" role="tablist">
+              <label><input type="radio" name="view" value="highlight" checked />Highlight</label>
+              <label><input type="radio" name="view" value="redacted" />Redacted</label>
+            </div>
+            <span class="status-line" id="status">Loading model…</span>
+          </div>
+
+          <output class="result" id="result" aria-live="polite"></output>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── 02 · How it works ─────────── -->
+  <section class="card">
+    <div class="eyebrow"><span>How it works</span></div>
+    <h2 class="display-md">A tiny model. <span class="accent">A hard rule set.</span></h2>
+    <p class="lead" style="max-width:70ch;">
+      Redact pairs a 6-layer multilingual token classifier with a dependency-free
+      deterministic layer. The neural model reads context (names, streets, messy
+      natural-language PII) while checksum-validated rules own the structured
+      fields: emails, URLs, IPs, cards (Luhn), IBANs, SSNs, national IDs for all
+      24 EU countries, all 27 EU VAT numbers, IMEI, and driving licences.
+    </p>
+    <div class="stat-row" style="margin-top:2.5rem;">
+      <div class="stat"><div class="num accent">~14 MB</div><div class="label">int4 · on-device</div></div>
+      <div class="stat"><div class="num">24</div><div class="label">EU languages</div></div>
+      <div class="stat"><div class="num">20</div><div class="label">entity types</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">scripts · Latin · Greek · Cyrillic</div></div>
+    </div>
+  </section>
+
+  <!-- ─────────── 04 · Ship anywhere, free ─────────── -->
+  <section class="card">
+    <div class="eyebrow"><span>Ship anywhere</span></div>
+    <h2 class="display-md">Yours to ship. <span class="accent">Free for most apps.</span></h2>
+    <p class="lead">
+      Redact runs on macOS, iOS, Android, and in the browser. Cloud PII APIs charge
+      per request or per character. We don't. <span class="accent">It's free for most apps; a <a href="https://license.desertant.ai/1.0" target="_blank" rel="noopener">commercial license</a> is required only at scale.</span>
+    </p>
+  </section>
+
+  <!-- ─────────── 05 · CTA ─────────── -->
+  <section class="card cta">
+    <div class="eyebrow"><span>Available now</span></div>
+    <h2 class="display-md">Redact anything. <span class="accent">Ship nothing to a cloud.</span></h2>
+    <p class="lead">
+      Open weights today, plus drop-in <span class="accent">Swift</span> and <span class="accent">JavaScript</span> SDKs for iOS, macOS, tvOS, visionOS, Node and the browser. Android is on the way.
+    </p>
+    <div class="cta-links">
+      <a href="https://huggingface.co/desert-ant-labs/redact" target="_blank" rel="noopener">model card on hugging face</a> ·
+      <a href="https://github.com/Desert-Ant-Labs/redact-swift" target="_blank" rel="noopener">swift sdk on github</a> ·
+      <a href="https://github.com/Desert-Ant-Labs/redact-js" target="_blank" rel="noopener">js sdk on github</a> ·
+      <a href="https://license.desertant.ai/1.0" target="_blank" rel="noopener">license</a>
+    </div>
+  </section>
+
+  <div class="brand-footer">
+    <span>Desert Ant Labs</span>
+    <span>2026</span>
+  </div>
+</main>
+
+<script src="main.js" type="module"></script>
+</body>
+</html>
