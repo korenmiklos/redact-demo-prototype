@@ -6,8 +6,11 @@
 // Install it in your own app with `npm i @desert-ant-labs/redact`; the model is
 // fetched from the Hugging Face Hub on first load and cached in the browser.
 
-import { Redact } from '@desert-ant-labs/redact';
+import { load } from '@desert-ant-labs/redact';
 import { SAMPLES } from './lib/samples.mjs';
+
+// Desert Ant usage key — attributes this app's on-device usage to our account.
+const USAGE_KEY = 'dal_lEL3EuFU2eh8IRTH8RW9pV9czYn0TrCk';
 
 const $ = (id) => document.getElementById(id);
 const input = $('input');
@@ -104,7 +107,7 @@ $('viewToggle').addEventListener('change', () => render(input.value, lastSpans))
 (async function boot() {
   input.value = SAMPLES[Object.keys(SAMPLES)[0]];
   try {
-    redact = await Redact.load();
+    redact = await load({ usageKey: USAGE_KEY });
     setStatus('Ready.');
     run();
   } catch (e) {
