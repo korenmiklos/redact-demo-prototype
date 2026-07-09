@@ -10,7 +10,7 @@ import { load } from '@desert-ant-labs/redact';
 import { SAMPLES } from './lib/samples.mjs';
 
 // Desert Ant usage key — attributes this app's on-device usage to our account.
-const USAGE_KEY = 'dal_lEL3EuFU2eh8IRTH8RW9pV9czYn0TrCk';
+const USAGE_KEY = 'dal_8ZC7e5sQULDhcj2xVcxpfXxFJPRU_SIS';
 
 const $ = (id) => document.getElementById(id);
 const input = $('input');
