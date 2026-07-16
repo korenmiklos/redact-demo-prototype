@@ -6,11 +6,8 @@
 // Install it in your own app with `npm i @desert-ant-labs/redact`; the model is
 // fetched from the Hugging Face Hub on first load and cached in the browser.
 
-import { load } from '@desert-ant-labs/redact';
+import { Redact } from '@desert-ant-labs/redact';
 import { SAMPLES } from './lib/samples.mjs';
-
-// Desert Ant usage key — attributes this app's on-device usage to our account.
-const USAGE_KEY = 'dal_8ZC7e5sQULDhcj2xVcxpfXxFJPRU_SIS';
 
 const $ = (id) => document.getElementById(id);
 const input = $('input');
@@ -71,8 +68,10 @@ async function run() {
   setStatus('Scanning…');
   const t0 = performance.now();
   try {
-    const spans = await redact.detect(text);
+    // The SDK returns { redactedText, items, restore }; items carry start/end/label.
+    const { items } = await redact.redaction(text);
     if (my !== seq) return; // superseded
+    const spans = items;
     lastSpans = spans;
     render(text, spans);
     const ms = Math.round(performance.now() - t0);
@@ -107,7 +106,10 @@ $('viewToggle').addEventListener('change', () => render(input.value, lastSpans))
 (async function boot() {
   input.value = SAMPLES[Object.keys(SAMPLES)[0]];
   try {
-    redact = await load({ usageKey: USAGE_KEY });
+    // Point LiteRT.js at the self-hosted wasm (same origin, works offline).
+    redact = await Redact.load({
+      litertWasmDir: new URL('./lib/litert/core/wasm/', document.baseURI).href,
+    });
     setStatus('Ready.');
     run();
   } catch (e) {

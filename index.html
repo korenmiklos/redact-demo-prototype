@@ -19,11 +19,17 @@
   <link rel="stylesheet" href="theme.css" />
   <link rel="stylesheet" href="redact.css" />
 
+  <!-- Self-hosted so the WebAssembly core + LiteRT.js load same-origin (CDN
+       transforms break the wasm/WASI relative-asset loading). This is the
+       published @desert-ant-labs/redact 0.4.0 SDK; install it with
+       `npm i @desert-ant-labs/redact @litertjs/core`. -->
   <script type="importmap">
   {
     "imports": {
-      "@huggingface/transformers": "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0",
-      "@desert-ant-labs/redact": "https://esm.sh/@desert-ant-labs/redact@0.2.4?external=@huggingface/transformers"
+      "@desert-ant-labs/redact": "./lib/redact/index.js",
+      "@bjorn3/browser_wasi_shim": "./lib/wasi/index.js",
+      "@litertjs/core": "./lib/litert/core/index.js",
+      "@litertjs/wasm-utils": "./lib/litert/wasm-utils/index.js"
     }
   }
   </script>
@@ -80,7 +86,7 @@
       24 EU countries, all 27 EU VAT numbers, IMEI, and driving licences.
     </p>
     <div class="stat-row" style="margin-top:2.5rem;">
-      <div class="stat"><div class="num accent">~14 MB</div><div class="label">int4 · on-device</div></div>
+      <div class="stat"><div class="num accent">~24 MB</div><div class="label">LiteRT int8 · in browser</div></div>
       <div class="stat"><div class="num">24</div><div class="label">EU languages</div></div>
       <div class="stat"><div class="num">20</div><div class="label">entity types</div></div>
       <div class="stat"><div class="num">3</div><div class="label">scripts · Latin · Greek · Cyrillic</div></div>
@@ -102,13 +108,11 @@
     <div class="eyebrow"><span>Available now</span></div>
     <h2 class="display-md">Redact anything. <span class="accent">Ship nothing to a cloud.</span></h2>
     <p class="lead">
-      Open weights today, plus drop-in <a class="accent" href="https://github.com/Desert-Ant-Labs/redact-swift" target="_blank" rel="noopener">Swift</a>, <a class="accent" href="https://github.com/Desert-Ant-Labs/redact-kotlin" target="_blank" rel="noopener">Kotlin</a> and <a class="accent" href="https://github.com/Desert-Ant-Labs/redact-js" target="_blank" rel="noopener">JavaScript</a> SDKs for iOS, macOS, tvOS, visionOS, Android, JVM, Node and the browser.
+      Open weights today, plus drop-in <a class="accent" href="https://github.com/Desert-Ant-Labs/redact" target="_blank" rel="noopener">Swift, Kotlin and JavaScript</a> SDKs for iOS, macOS, tvOS, visionOS, Android, JVM, Node and the browser, all from one repo.
     </p>
     <div class="cta-links">
       <a href="https://huggingface.co/desert-ant-labs/redact" target="_blank" rel="noopener">model card on hugging face</a> ·
-      <a href="https://github.com/Desert-Ant-Labs/redact-swift" target="_blank" rel="noopener">swift sdk on github</a> ·
-      <a href="https://github.com/Desert-Ant-Labs/redact-kotlin" target="_blank" rel="noopener">kotlin sdk on github</a> ·
-      <a href="https://github.com/Desert-Ant-Labs/redact-js" target="_blank" rel="noopener">js sdk on github</a> ·
+      <a href="https://github.com/Desert-Ant-Labs/redact" target="_blank" rel="noopener">sdk on github</a> ·
       <a href="https://license.desertant.ai/1.0" target="_blank" rel="noopener">license</a>
     </div>
   </section>
