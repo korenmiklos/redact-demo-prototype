@@ -25,11 +25,11 @@ model is int8 LiteRT (`.tflite`, ~24 MB); the Apple Core ML build is a smaller
 ## How it runs
 
 - Uses the published SDK, [`@desert-ant-labs/redact`](https://www.npmjs.com/package/@desert-ant-labs/redact)
-  `0.4.0`, self-hosted under `lib/` so the WebAssembly core and LiteRT.js load
-  same-origin (see the import map in `index.html`). The SDK bundles the tiny
-  token classifier + the checksum-validated deterministic recognizer layer
-  (national IDs for all 24 EU countries, all 27 EU VAT numbers, IMEI, driving
-  licences, cards, IBAN/BIC and more) and the full post-model pipeline.
+  `0.6.0`, self-hosted under `lib/` so the WebAssembly core and LiteRT.js load
+  same-origin (see the import map in `index.html`). The SDK includes the
+  checksum-validated deterministic recognizer layer (national IDs for all 24 EU
+  countries, all 27 EU VAT numbers, IMEI, driving licences, cards, IBAN/BIC and
+  more) and the full post-model pipeline.
 - The model (int8 LiteRT `.tflite`, ~24 MB) is fetched once from the Hugging
   Face Hub (`desert-ant-labs/redact`) and cached in the browser, then works
   offline. Inference runs on the XNNPACK CPU backend via LiteRT.js.
