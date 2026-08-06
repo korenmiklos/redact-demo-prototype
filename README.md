@@ -13,13 +13,13 @@ short_description: On-device multilingual PII redaction, in the browser.
 
 A static, fully client-side demo of [`desert-ant-labs/redact`](https://huggingface.co/desert-ant-labs/redact):
 a tiny multilingual PII detector that masks names, addresses, emails, phones,
-cards, IBANs and national IDs across 24 EU languages.
+cards, IBANs and national IDs across 24 EU languages and more.
 
 Type or paste text (or pick a sample) and see detected entities highlighted, or
 switch to the redacted view. **The text never leaves your browser** - the model
 runs in-page through a local WebAssembly pipeline with
 [LiteRT.js](https://www.npmjs.com/package/@litertjs/core) inference. The browser
-model is int8 LiteRT (`.tflite`, ~24 MB); the Apple Core ML build is a smaller
+model is int8 LiteRT (`.tflite`, ~24.5 MB); the Apple Core ML build is a smaller
 4-bit model (~12 MB).
 
 ## How it runs
@@ -30,7 +30,7 @@ model is int8 LiteRT (`.tflite`, ~24 MB); the Apple Core ML build is a smaller
   checksum-validated deterministic recognizer layer (national IDs for all 24 EU
   countries, all 27 EU VAT numbers, IMEI, driving licences, cards, IBAN/BIC and
   more) and the full post-model pipeline.
-- The model (int8 LiteRT `.tflite`, ~24 MB) is fetched once from the Hugging
+- The model (int8 LiteRT `.tflite`, ~24.5 MB) is fetched once from the Hugging
   Face Hub (`desert-ant-labs/redact`) and cached in the browser, then works
   offline. Inference runs on the XNNPACK CPU backend via LiteRT.js.
 - `main.js` is just UI glue: it calls `redact.redaction(text)` and renders the
