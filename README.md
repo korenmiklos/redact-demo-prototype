@@ -13,7 +13,7 @@ short_description: On-device multilingual PII redaction, in the browser.
 
 A static, fully client-side demo of [`desert-ant-labs/redact`](https://huggingface.co/desert-ant-labs/redact):
 a tiny multilingual PII detector that masks names, addresses, emails, phones,
-cards, IBANs and national IDs across 24 EU languages and more.
+cards, IBANs and national IDs across 27 languages.
 
 Type or paste text (or pick a sample) and see detected entities highlighted, or
 switch to the redacted view. **The text never leaves your browser** - the model
