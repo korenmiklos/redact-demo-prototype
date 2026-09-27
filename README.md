@@ -22,6 +22,14 @@ runs in-page through a local WebAssembly pipeline with
 model is int8 LiteRT (`.tflite`, ~24.5 MB); the Apple Core ML build is a smaller
 4-bit model (~12 MB).
 
+## Run locally
+
+```sh
+python3 -u -m http.server 4173
+```
+
+Open <http://127.0.0.1:4173>. The first load fetches the model from the Hugging Face Hub; later loads use the browser cache.
+
 ## How it runs
 
 - Uses the published SDK, [`@desert-ant-labs/redact`](https://www.npmjs.com/package/@desert-ant-labs/redact)
